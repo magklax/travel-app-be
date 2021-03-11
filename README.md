@@ -1,1 +1,1 @@
-# magklax-travel-app-be
+# Travel-app backend
