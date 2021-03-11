@@ -33,17 +33,7 @@ const countrySchema = new Schema({
     unique: true,
     required: true,
   },
-  capitalLocation: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      required: true,
-    },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
-  },
+  timeZone: String,
   localizations: [localeSchema],
 });
 

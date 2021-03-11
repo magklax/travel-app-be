@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.param(
   'id',
-  wrap(async (req, res, next) => {
+  wrap(async (req, _, next) => {
     const { id } = req.params;
     validateId(id, ENTITY_NAME);
     next();

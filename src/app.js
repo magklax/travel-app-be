@@ -28,10 +28,10 @@ const countryRouter = require('./modules/countries/country.router');
 
 app.use('/countries', countryRouter);
 
-app.use((req, res) => {
+app.use((_, res) => {
   res.status(StatusCodes.NOT_IMPLEMENTED).send(ReasonPhrases.NOT_IMPLEMENTED);
 });
 
 app.use(errorMiddleware);
-
+  
 module.exports = app;

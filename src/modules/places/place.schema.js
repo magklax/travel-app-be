@@ -10,6 +10,11 @@ const placeLocaleSchema = new Schema({
   description: String,
 });
 
+const RateSchema = new Schema({
+  name: String,
+  rate: Number,
+});
+
 const placeSchema = new Schema({
   countryId: {
     type: Schema.Types.ObjectId,
@@ -19,6 +24,7 @@ const placeSchema = new Schema({
     type: String,
     require: true,
   },
+  rates: [RateSchema],
   localizations: [placeLocaleSchema],
 });
 
