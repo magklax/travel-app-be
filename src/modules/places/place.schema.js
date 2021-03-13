@@ -11,6 +11,7 @@ const placeLocaleSchema = new Schema({
 });
 
 const RateSchema = new Schema({
+  _id: false,
   name: String,
   rate: Number,
 });

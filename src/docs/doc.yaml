@@ -1,13 +1,8 @@
 openapi: 3.0.0
-servers: [
-  {
-  'url': '/',
-  "description": "",
-  }
-]
+servers: [{ 'url': '/', 'description': '' }]
 info:
   description: This is a simple Travel App API
-  version: "1.0.0"
+  version: '1.0.0'
   title: Travel App Demo API
 
 paths:
@@ -32,6 +27,27 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Country'
+  /places:
+    get:
+      tags:
+        - places
+      summary: list of places
+      parameters:
+        - in: query
+          name: lang
+          description: optional language
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of all places
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Place'
   /countries/{countryId}:
     get:
       tags:
@@ -43,7 +59,7 @@ paths:
           required: true
           schema:
             type: string
-            format: objectId  
+            format: objectId
         - in: query
           name: lang
           description: optional language
@@ -68,19 +84,19 @@ paths:
                             photoUrl:
                               type: string
                             localizations:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    name:
-                                      type: string
-                                    description:
-                                      type: string
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  description:
+                                    type: string
         '404':
           description: country not found
         '400':
           description: 'invalid Country ID. ID must be objectID'
-          
+
 components:
   schemas:
     Country:
@@ -122,7 +138,7 @@ components:
             properties:
               name:
                 type: string
-              capital: 
+              capital:
                 type: string
               description:
                 type: string
@@ -132,17 +148,17 @@ components:
         - countryId
         - photoUrl
       properties:
-        countryId: 
+        countryId:
           type: string
           format: objectId
         photoUrl:
           type: string
         localizations:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                description:
-                  type: string
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
