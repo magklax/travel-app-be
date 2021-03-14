@@ -40,7 +40,7 @@ router.post(
   wrap(async (req, res) => {
     const { id } = req.params;
     const data = await placeService.updateRates(id, req.body);
-    res.json(data);
+    res.json({ success: data });
   })
 );
 
