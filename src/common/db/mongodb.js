@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const { MONGO_CONNECTION_STRING } = require('../config');
 const logger = require('../logging/logger');
 
-mongoose.set('useFindAndModify', false);
-
 const connectToDB = () => {
   mongoose
     .connect(MONGO_CONNECTION_STRING, {

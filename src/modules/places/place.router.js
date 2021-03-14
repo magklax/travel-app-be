@@ -42,18 +42,23 @@ router.post(
     const { id } = req.params;
 
     const query = { _id: id, 'rates.name': req.body.name };
-
+    const options = { new: true };
     const callback = (errs, docs) => {
       if (errs) {
         return res.status(400).json({ errors: errs });
       } else {
-        return res.status(200).json({ success: docs });
+        return res.status(200).json({ errors: docs });
       }
     };
 
-    await Place.findOne(query, function (err, docs) {
+    await Place.findOne(query, (_, docs) => {
       if (!docs) {
-        Place.findByIdAndUpdate(id, { $push: { rates: req.body } }, callback);
+        Place.findByIdAndUpdate(
+          id,
+          { $push: { rates: req.body } },
+          options,
+          callback
+        );
       } else if (docs) {
         Place.findOneAndUpdate(
           query,
@@ -63,6 +68,7 @@ router.post(
               'rates.$.rate': req.body.rate,
             },
           },
+          options,
           callback
         );
       }
