@@ -8,6 +8,7 @@ const connectToDB = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     })
     .catch((err) => logger.error(err.message));
 

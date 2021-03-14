@@ -47,7 +47,7 @@ router.post(
       if (errs) {
         return res.status(400).json({ errors: errs });
       } else {
-        return res.status(200).json({ errors: docs });
+        return res.status(200).json({ success: docs });
       }
     };
 
