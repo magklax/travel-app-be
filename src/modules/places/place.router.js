@@ -4,7 +4,6 @@ const placeService = require('./place.service');
 const validateId = require('../../common/validation/objectID.validation');
 const { DEFAULT_LANG } = require('../../common/config');
 const { ENTITY_NAME } = require('./constants');
-const Place = require('./place.schema');
 
 const router = express.Router();
 
@@ -40,39 +39,8 @@ router.post(
   '/:id',
   wrap(async (req, res) => {
     const { id } = req.params;
-
-    const query = { _id: id, 'rates.name': req.body.name };
-    const options = { new: true };
-    const callback = (errs, docs) => {
-      if (errs) {
-        return res.status(400).json({ errors: errs });
-      } else {
-        return res.status(200).json({ success: docs });
-      }
-    };
-
-    await Place.findOne(query, (_, docs) => {
-      if (!docs) {
-        Place.findByIdAndUpdate(
-          id,
-          { $push: { rates: req.body } },
-          options,
-          callback
-        );
-      } else if (docs) {
-        Place.findOneAndUpdate(
-          query,
-          {
-            $set: {
-              'rates.$.name': req.body.name,
-              'rates.$.rate': req.body.rate,
-            },
-          },
-          options,
-          callback
-        );
-      }
-    });
+    const data = await placeService.updateRates(id, req.body);
+    res.json(data);
   })
 );
 

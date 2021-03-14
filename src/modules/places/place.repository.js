@@ -33,7 +33,34 @@ const getOneByLang = async (id, lang) => {
   throw new NotFoundError(ENTITY_NAME);
 };
 
+const updateRates = async (id, data) => {
+  const query = { _id: id, 'rates.name': data.name };
+  const options = { new: true };
+
+  const result = await Place.exists(query);
+
+  if (!result) {
+    return Place.findByIdAndUpdate(
+      id,
+      { $push: { rates: data } },
+      options
+    ).exec();
+  } else {
+    return Place.findOneAndUpdate(
+      query,
+      {
+        $set: {
+          'rates.$.name': data.name,
+          'rates.$.rate': data.rate,
+        },
+      },
+      options
+    ).exec();
+  }
+};
+
 module.exports = {
   getAllByLang,
   getOneByLang,
+  updateRates,
 };
